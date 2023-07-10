@@ -1,0 +1,2 @@
+## Sudoers file to allow any user to start/stop display-switch
+ALL ALL=(ALL:ALL) NOPASSWD: /usr/bin/systemctl ^(start|stop) display_switch$
