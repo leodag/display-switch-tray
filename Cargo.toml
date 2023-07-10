@@ -1,0 +1,11 @@
+[package]
+name = "display_switch_tray"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+appindicator3 = "0.2.3"
+glib = "0.17.10"
+gtk = "0.15"
