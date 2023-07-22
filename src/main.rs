@@ -17,6 +17,15 @@ enum ActiveStateEnum {
     Active,
 }
 
+impl ActiveStateEnum {
+    fn is_active(&self) -> bool {
+        match self {
+            ActiveStateEnum::Active => true,
+            ActiveStateEnum::Inactive => false,
+        }
+    }
+}
+
 #[derive(Debug)]
 enum FailedStateEnum {
     Failed,
@@ -135,12 +144,13 @@ fn main() {
     let state = ServiceState::new(active_state, failed_state);
     set_icon(&indicator, &state);
 
-    let service_state = Rc::new(RefCell::new(state));
-
     let m = gtk::Menu::new();
 
     let mi_enabled = gtk::CheckMenuItem::with_label("Active");
+    mi_enabled.set_active(state.active.is_active());
     m.append(&mi_enabled);
+
+    let service_state = Rc::new(RefCell::new(state));
 
     let sep = gtk::SeparatorMenuItem::new();
     m.append(&sep);
