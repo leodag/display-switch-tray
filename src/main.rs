@@ -5,6 +5,7 @@ use std::path::Path;
 use std::process::Command;
 use std::cell::RefCell;
 use std::rc::Rc;
+use std::env;
 use appindicator3::prelude::*;
 use appindicator3::{Indicator, IndicatorStatus, IndicatorCategory};
 
@@ -116,7 +117,9 @@ fn set_icon(indicator: &Indicator, service_state: &ServiceState) {
 fn main() {
     gtk::init().unwrap();
 
-    let icon_path = Path::new(env!("CARGO_MANIFEST_DIR"));
+    let icons_dir = env::var("CARGO_MANIFEST_DIR")
+        .unwrap_or(String::from("/usr/share/display-switch-tray/icons/"));
+    let icon_path = Path::new(icons_dir.as_str());
 
     let indicator = Indicator::builder(APP_NAME)
         .category(IndicatorCategory::ApplicationStatus)
@@ -189,6 +192,4 @@ fn main() {
     indicator.set_secondary_activate_target(Some(&mi_enabled));
 
     gtk::main();
-
-    println!("Hello, world!");
 }
