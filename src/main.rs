@@ -125,7 +125,7 @@ fn main() {
         .category(IndicatorCategory::ApplicationStatus)
         .icon_theme_path(icon_path.to_str().unwrap())
         .icon("active-symbolic", "icon")
-        .attention_icon("action-unavailable-symbolic", "failed")
+        .attention_icon("failed-symbolic", "failed")
         .status(IndicatorStatus::Active)
         .title(APP_NAME)
         .label("Display Switch")
