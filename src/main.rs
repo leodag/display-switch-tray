@@ -168,7 +168,7 @@ fn main() {
         } else {
             let mut state = service_state.as_ref().borrow_mut();
 
-            match state.change_state(ActiveStateEnum::Active) {
+            match state.change_state(ActiveStateEnum::Inactive) {
                 FailedStateEnum::Failed => {
                     mi_enabled.block_signal(&handler_id.as_ref().borrow_mut().as_mut().unwrap());
                     mi_enabled.set_active(false);
