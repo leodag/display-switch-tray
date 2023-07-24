@@ -1,7 +1,7 @@
 use gtk::glib;
 use gtk::glib::SignalHandlerId;
 use gtk::prelude::*;
-use std::path::Path;
+use std::path::PathBuf;
 use std::process::Command;
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -126,9 +126,10 @@ fn set_icon(indicator: &Indicator, service_state: &ServiceState) {
 fn main() {
     gtk::init().unwrap();
 
-    let icons_dir = env::var("CARGO_MANIFEST_DIR")
-        .unwrap_or(String::from("/usr/share/display-switch-tray/icons/"));
-    let icon_path = Path::new(icons_dir.as_str());
+    let icon_path = match env::var("CARGO_MANIFEST_DIR") {
+        Ok(manifest_dir) => PathBuf::new().join(manifest_dir).join("extra"),
+        _ => PathBuf::new().join("/usr/share/display-switch-tray/icons/"),
+    };
 
     let indicator = Indicator::builder(APP_NAME)
         .category(IndicatorCategory::ApplicationStatus)
