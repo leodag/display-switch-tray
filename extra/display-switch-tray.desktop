@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Display Switch Tray
+GenericName=Display Switch Tray
+Comment=Show a tray icon indicationg display-switch's current state and allowing it to be toggled easily.
+Exec=display_switch_tray
+Icon=display-switch-tray-symbolic
+Terminal=false
+Type=Application
+Categories=System;Utility;Monitor;TrayIcon;
+StartupNotify=false
