@@ -9,7 +9,7 @@ use std::env;
 use appindicator3::prelude::*;
 use appindicator3::{Indicator, IndicatorStatus, IndicatorCategory};
 
-const APP_NAME: &str = "Display Switch Tray";
+const APP_NAME: &str = "Display Switch";
 
 #[derive(Debug)]
 enum ActiveStateEnum {
@@ -138,7 +138,6 @@ fn main() {
         .attention_icon("failed-symbolic", "failed")
         .status(IndicatorStatus::Active)
         .title(APP_NAME)
-        .label("Display Switch")
         .build();
 
     let (active_state, failed_state) = current_unit_state();
