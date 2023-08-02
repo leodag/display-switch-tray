@@ -10,6 +10,7 @@ use appindicator3::prelude::*;
 use appindicator3::{Indicator, IndicatorStatus, IndicatorCategory};
 
 const APP_NAME: &str = "Display Switch";
+const PERIODIC_CHECK_INTERVAL_SECONDS: u32 = 4;
 
 #[derive(Debug)]
 enum ActiveStateEnum {
@@ -189,6 +190,16 @@ fn main() {
 
             set_icon(&indicator, &state);
         }
+    }));
+
+    glib::timeout_add_seconds_local(PERIODIC_CHECK_INTERVAL_SECONDS, glib::clone!(@strong service_state, @weak indicator => @default-panic, move || {
+        let (active_state, failed_state) = current_unit_state();
+
+        let mut state = service_state.as_ref().borrow_mut();
+        state.sync_state(active_state, failed_state);
+        set_icon(&indicator, &state);
+
+        Continue(true)
     }));
 
     *handler_id.as_ref().borrow_mut() = Some(h_id);
